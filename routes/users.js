@@ -54,10 +54,10 @@ router.post('/update', function (req, res) {
         }
     }
     else {
+        if(req.body.userName)user.userName = req.body.userName;
+        if(req.body.password)user.password = req.body.password;
         user.firstName = req.body.firstName;
         user.lastName = req.body.lastName;
-        user.userName = req.body.userName;
-        user.password = req.body.password;
         user.email = req.body.email;
         user.role = req.body.role;
         if (user.role == "employee")

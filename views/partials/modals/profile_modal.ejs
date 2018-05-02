@@ -5,13 +5,13 @@
         <input type="text" id="fname-profile" required>
         <label for="lname-profile">Last Name</label>
         <input type="text" id="lname-profile" required>
-        <label for="uname-profile">User Name</label>
+        <label id="luname-profile" for="uname-profile">User Name</label>
         <input type="text" id="uname-profile" required>
         <label for="mail-profile">Email</label>
         <input type="email" id="mail-profile" required>
-        <label for="pass-profile">Password</label>
+        <label id="lpass-profile" for="pass-profile">Password</label>
         <input type="password" id="pass-profile">
-        <label for="vpass-profile">Confirm Password</label>
+        <label id="lvpass-profile" for="vpass-profile">Confirm Password</label>
         <input type="password" id="vpass-profile">
         <label for="role-profile">Role</label>
         <select id="role-profile" required>
@@ -40,9 +40,12 @@
         </br>
         </br>
         <% if(role=="manager"){ %>
+            <input type="checkbox" id="cpass-profile" onclick="editPassword()">
+            <label for="uname-editUser" id="lcpass-profile">Edit password</label>
+            </br>
             <input type="checkbox" id="delete-profile">
             <label for="delete-profile" id="ldelete-profile">Delete User</label>
             <% }; %>
-                <button type="submit">Add</button>
+                <button id="submit-profile" type="submit">aa</button>
     </div>
 </form>

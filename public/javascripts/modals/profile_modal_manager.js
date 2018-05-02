@@ -13,16 +13,23 @@ function openProfileModal_Edit(userName) {
 
             $("#fname-profile").val(json.firstName);
             $("#lname-profile").val(json.lastName);
-            $("#uname-profile").val(json.userName);
-            $("#mail-profile").val(json.mail);
+            $("#mail-profile").val(json.email);
             $("#role-profile").val(json.role);
             $("#gender-profile").val(json.gender);
+            $("#submit-profile").text("Submit");
+
             $("#ldelete-profile").show();
             $("#delete-profile").show();
-            $("#pass-profile").prop('required', false);
-            $("#vpass-profile").prop('required', false);
+            $("#cpass-profile").show();
+            $("#lcpass-profile").show();
+            $("#uname-profile").hide();
+            $("#luname-profile").hide();
+
+            $('#cpass-profile').prop('checked', false);
             $('#delete-profile').prop('checked', false);
             $('#profile-form').attr('onsubmit', 'editUser(\'' + json.userName + '\')');
+          
+            editPassword();
 
             if (json.role == "employee") {
                 $("#branch-profile").val(json.branch);
@@ -53,23 +60,32 @@ function openProfileModal_Edit(userName) {
         });
 }
 function openProfileModal_Add() {
-    $("#fname-profile").val("");
-    $("#lname-profile").val("");
-    $("#uname-profile").val("");
-    $("#branch-profile").val("");
-    $("#role-profile").val("");
-    $("#pass-profile").val("");
-    $("#gender-profile").val("");
-    $("#submit").val("Add");
+    alert($("#submit-profile").text());
+    if ($("#fname-signup").val() != "") $("#fname-profile").val("");
+    if ($("#fname-signup").val() != "") $("#lname-profile").val("");
+    if ($("#fname-signup").val() != "") $("#uname-profile").val("");
+    if ($("#fname-signup").val() != "") $("#branch-profile").val("");
+    if ($("#fname-signup").val() != "") $("#mail-profile").val("");
+    if ($("#fname-signup").val() != "") $("#role-profile").val("");
+    if ($("#fname-signup").val() != "") $("#pass-profile").val("");
+    if ($("#fname-signup").val() != "") $("#vpass-profile").val("");
+    if ($("#fname-signup").val() != "") $("#gender-profile").val("");
+    $("#submit-profile").text("Add");
+
     $("#lbranch-profile").hide();
     $("#branch-profile").hide();
     $("#ldelete-profile").hide();
     $("#delete-profile").hide();
-    $("#pass-profile").prop('required', true);
-    $("#vpass-profile").prop('required', true);
+    $("#cpass-profile").hide();
+    $("#lcpass-profile").hide();
+    $("#uname-profile").show();
+    $("#luname-profile").show();
+
     $('#delete-profile').prop('checked', false);
+    $('#cpass-profile').prop('checked', true);
     $('#profile-form').attr('onsubmit', 'addUser()');
 
+    editPassword();
 
     $("#profile-modal").show();
 
@@ -87,7 +103,7 @@ function openProfileModal_Add() {
     })
 }
 function editUser(userName) {
-    if (("#pass-profile").val() == ("#vpass-profile").val()) {
+    if ($("#pass-profile").val() == $("#vpass-profile").val()) {
         $("status-" + userName).val("Pendding");
         var status = !$("#delete-profile").is(':checked');
         $.post("update",
@@ -95,9 +111,8 @@ function editUser(userName) {
                 uname: userName,
                 firstName: $("#fname-profile").val(),
                 lastName: $("#lname-profile").val(),
-                userName: $("#uname-profile").val(),
                 email: $("#mail-profile").val(),
-                password: $md5(("#pass-profile").val()),
+                password: md5($("#pass-profile").val()),
                 branch: $("#branch-profile").val(),
                 role: $("#role-profile").val(),
                 gender: $("#gender-profile").val(),
@@ -130,7 +145,7 @@ function editUser(userName) {
         alert("Password and confirm password doesn't match");
 }
 function addUser() {
-    if (("#pass-profile").val() == ("#vpass-profile").val()) {
+    if ($("#pass-profile").val() == $("#vpass-profile").val()) {
         $.post("add",
             {
                 firstName: $("#fname-profile").val(),
@@ -176,4 +191,22 @@ function htmlToElement(html) {
     html = html.trim(); // Never return a text node of whitespace as the result
     template.innerHTML = html;
     return template.content.firstChild;
+}
+
+function editPassword() {
+    if ($("#cpass-profile").prop('checked')) {
+        $("#pass-profile").show();
+        $("#vpass-profile").show();
+        $("#lvpass-profile").show();
+        $("#lpass-profile").show();
+        $("#pass-profile").prop('required', true);
+        $("#vpass-profile").prop('required', true);
+    } else {
+        $("#pass-profile").hide();
+        $("#vpass-profile").hide();
+        $("#lpass-profile").hide();
+        $("#lvpass-profile").hide();
+        $("#pass-profile").prop('required', false);
+        $("#vpass-profile").prop('required', false);
+    }
 }
