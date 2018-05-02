@@ -1,0 +1,32 @@
+<form class="modal-content animate" onsubmit="login('login')" action="javascript:void(0);">
+  <div class="imgcontainer">
+    <img src="..\images\login\avatar.png" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label>
+      <b>Username</b>
+    </label>
+    <input type="text" placeholder="Enter Username" id="uname-login" required>
+
+    <label>
+      <b>Password</b>
+    </label>
+    <input type="password" placeholder="Enter Password" id="pass-login" required>
+
+    <button type="submit">Login</button>
+    <input type="checkbox" checked="checked"> Remember me
+	    </br>
+	    </br>
+    <span>Unregistered?
+      <a onclick='openSingUpModal()' href="#">sign up</a>
+    </span>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" onclick="document.getElementById('login-modal').style.display='none'" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot
+      <a onclick='openResetPassword()' href="#">password?</a>
+    </span>
+  </div>
+</form>

@@ -1,0 +1,39 @@
+<% if (user) { %>
+    <tr id="<%= "row-" + user.userName %>">
+        <td>
+            <img id="<%= "img-" + user.userName %>" src= <%="../images/" + user.gender + ".jpg" %>>
+            <a id="<%= "name-" + user.userName %>" class="user-link">
+                <%= user.firstName %>
+                    <%= user.lastName %>
+            </a>
+            <span id="<%= "role-" + user.userName %>" class="user-subhead">
+                <%= user.role %>
+            </span>
+        </td>
+        <td class="text-center">
+            <span id="<%= "branch-" + user.userName %>">
+                <%= user.branch %>
+            </span>
+        </td>
+        <td class="text-center">
+            <span id="<%= "status-" + user.userName %>" class="label label-default">
+                Updated
+            </span>
+        </td>
+
+        <td style="width: 20%;">
+            <a class="table-link" name="editBtn">
+                <span class="fa-stack" onclick="openProfileModal_Edit('<%=  user.userName   %>');">
+                    <i class="fa fa-square fa-stack-2x"></i>
+                    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+            <a class="table-link danger" name="deleteBtn">
+                <span class="fa-stack" onclick="deleteUser('<%=  user.userName   %>');">
+                    <i class="fa fa-square fa-stack-2x"></i>
+                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+        </td>
+    </tr>
+        <% } %>

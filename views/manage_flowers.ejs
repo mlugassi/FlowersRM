@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/user_managment_head %>
+        <script src="../javascripts/‏flower_modal_manager.js"></script>
+        <link rel="stylesheet" href="../stylesheets/owl.carousel.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg " id="mainNav" style="background-color: black">
+        <% include partials/navHeaderManage %>
+    </nav>
+    <h1 class="text-center">Flowers Catalog</h1>
+    <div style="width: 90%;  margin-left: auto; margin-right: auto;" id = "divCatalog">
+        <%- include('partials/catalog', {flowers: flowers}); %>
+    </div>
+    <div id="profile-modal" class="modal">
+        <% include partials/‏flower_profile %>
+    </div>
+    <a class="float" onclick="addFlower();">
+        <i class="fa fa-plus my-float"></i>
+    </a>
+</body>
+
+</html>

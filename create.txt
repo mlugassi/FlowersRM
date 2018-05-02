@@ -1,0 +1,141 @@
+User.create({
+  role: 'manager', 
+  active: true, 
+  gender: 'male', 
+  userName: 'refael', 
+  password: 'refael', 
+  firstName: 'Refael', 
+  lastName: 'Zanzuri'
+}, function(err, flower) {
+  if (err) throw err;
+  console.log('user created:' + flower);
+});
+User.create({ 
+  role: 'manager', 
+  active: true, 
+  gender: 'male', 
+  userName: 'michael', 
+  password: 'michael', 
+  firstName: 'Michael', 
+  lastName: 'Lugassi' 
+}, function(err, flower) {
+  if (err) throw err;
+  console.log('user created:' + flower);
+});
+User.create( { 
+  role: 'customer', 
+  active: true, 
+  gender: 'female', 
+  userName: 'shilat', 
+  password: 'shilat', 
+  firstName: 'Shilat', 
+  lastName: 'Zanzuri' 
+}, function(err, flower) {
+  if (err) throw err;
+  console.log('user created:' + flower);
+});
+User.create({ 
+  role: 'customer', 
+  active: true, 
+  gender: 'female', 
+  userName: 'shaked', 
+  password: 'shaked', 
+  firstName: 'Shaked', 
+  lastName: 'Zanzuri' 
+}, function(err, flower) {
+  if (err) throw err;
+  console.log('user created:' + flower);
+});
+User.create({ 
+   role: 'employee',
+   active: true, 
+   gender: 'female', 
+   userName: 'sapir', 
+   password: 'sapir', 
+   firstName: 'Sapir', 
+   lastName: 'Zanzuri', 
+   branch: 1 
+  }, function(err, flower) {
+  if (err) throw err;
+  console.log('user created:' + flower);
+});
+User.create({ 
+  role: 'employee', 
+  active: true,
+  gender: 'female', 
+  userName: 'orian', 
+  password: 'orian', 
+  firstName: 'Orian', 
+  lastName: 'Lugassi', 
+  branch: 2 
+}, function(err, flower) {
+ if (err) throw err;
+ console.log('user created:' + flower);
+});
+
+Flowers.create({
+	flower: "flower2",
+    color: "color2",
+    picture: "flower2.jpg",
+    cost: 200
+}, function(err, flower) {
+  if (err) throw err;
+  console.log('Floer created:' + flower);
+});
+Flowers.create({
+	flower: "flower1",
+    color: "color1",
+    picture: "flower1.jpg",
+    cost: 100
+}, function(err, flower) {
+  if (err) throw err;
+  console.log('Floer created:' + flower);
+});
+
+Flowers.create({
+	flower: "flower3",
+    color: "color3",
+    picture: "flower3.jpg",
+    cost: 300
+}, function(err, flower) {
+  if (err) throw err;
+  console.log('Floer created:' + flower);
+});
+Flowers.create({
+	flower: "flower4",
+    color: "color4",
+    picture: "flower4.jpg",
+    cost: 400
+}, function(err, flower) {
+  if (err) throw err;
+  console.log('Floer created:' + flower);
+});
+Branch.create({
+	id: 1,
+    name: 'Jerusalem',
+    manager: 'refael',
+    address: 'Havahad haleumi 21',
+    active: true,
+}, function(err, branch) {
+  if (err) throw err;
+  console.log('Branch created:' + branch);
+});
+Branch.create({
+	id: 2,
+    name: 'Tel-Aviv',
+    manager: 'michael',
+    address: 'Hertzel 23',
+    active: true,
+}, function(err, branch) {
+  if (err) throw err;
+  console.log('Branch created:' + branch);
+});
+Branch.create({
+	id: 3,
+    name: 'Haifa',
+    address: 'Raynes 5',
+    active: false,
+}, function(err, branch) {
+  if (err) throw err;
+  console.log('Branch created:' + branch);
+});

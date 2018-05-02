@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include partials/user_managment_head %>
+        <% if(role=="manager"){ %>
+            <script src="../javascripts/profile_modal_manager.js"></script>
+            <% }else{ %>
+                <script src="../javascripts/profile_modal.js"></script>
+                <% }; %>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg " id="mainNav" style="background-color: black">
+        <% include partials/navHeaderManage %>
+    </nav>
+    <div class="container bootstrap snippet">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        <div class="table-responsive">
+                            <table class="table user-list">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <span>User</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>Branch ID</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>Status</span>
+                                        </th>
+
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% users.forEach(function(user) { %>
+                                        <%- include('partials/user_row', {user: user}); %>
+                                            <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="modal">
+        <%- include('partials/modals/profile_modal' , {role: role, branches: branches}); %>
+    </div>
+    <a class="float" onclick="openProfileModal_Add();">
+        <i class="fa fa-plus my-float"></i>
+    </a>
+</body>
+
+</html>

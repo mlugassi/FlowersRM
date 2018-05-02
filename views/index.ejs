@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<% include partials/head %>
+</head>
+
+<body id="page-top">
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		<%- include('partials/navHeader', {uname: uname, role: role}); %>
+	</nav>
+	<!-- Header -->
+	<header class="masthead">
+		<% include partials/header %>
+	</header>
+
+	<!-- About -->
+	<section id="about">
+		<% include partials/about %>
+	</section>
+
+	<!-- Flower catalog -->
+	<% if(flowers != ""){ %>
+		<section id="catalog">
+			<%- include('partials/catalog', {flowers: flowers}); %>
+		</section>
+	<% }; %>
+
+	<!-- Contact -->
+	<section id="contact">
+		<% include partials/contact %>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<% include partials/footer %>
+	</footer>
+	<!-- Login -->
+	<div id="login-modal" class="modal">
+		<% include partials/modals/login_modal %>
+	</div>
+	<div id="sign-up-modal" class="modal">
+		<% include partials/modals/sign_up_modal %>
+	</div>
+	<div id="reset-password-modal" class="modal">
+		<% include partials/modals/reset_password_modal %>
+	</div>
+	<div id="edit-modal" class="modal">
+		<% include partials/modals/edit_user_modal %>
+	</div>
+	<div id="loader" class="modal">
+		<div class="loader"></div>
+	</div>
+</body>
+<script src="javascripts/agency.min.js"></script>
+</html>
