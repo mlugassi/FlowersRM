@@ -34,7 +34,7 @@ router.post('/update', function (req, res) {
         user.firstName = req.body.user.firstName;
         user.lastName = req.body.user.lastName;
         user.userName = req.body.user.userName;
-        user.role = req.body.user.role;
+        //user.role = req.body.user.role;
         user.gender = req.body.user.gender;
         user.email = req.body.user.email;
         if (req.body.user.password) {
