@@ -1,18 +1,3 @@
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 function editPassword() {
     if ($("#checkbox-pass-editUser").prop('checked')) {
         $("#opass-editUser").prop('disabled', false);
@@ -28,10 +13,7 @@ function editPassword() {
     }
 }
 function openUserModal() {
-    $.post("users/Details",
-        {
-            uname: getCookie("userName"),
-        },
+    $.get("users/Details",{ },
         function (data, status) {
 
             var json = jQuery.parseJSON(data);
@@ -76,7 +58,6 @@ function editUserData() {
     else {
         $.post("users/update",
             {
-                uname: getCookie("userName"),
                 user: user
             },
             function (data, status) {

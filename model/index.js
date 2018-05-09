@@ -11,6 +11,5 @@ let db = mongo.createConnection();
 require("./user")(db);
 require("./flower")(db);
 require("./branch")(db);
-require("./cookies")(db);
 //require("./todo")(db);
 module.exports = model => db.model(model);

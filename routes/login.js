@@ -59,7 +59,6 @@ router.post('/', function (req, res) {
     session.userName = user.userName;
     session.admin = user.role;
 
-    //res.cookie("userName", user.userName, { maxAge: 5 * 60 * 1000 });
     res.status(200).json('{"status":"success"}').redirect(req.session.referer);
   })()
 });

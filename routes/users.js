@@ -5,7 +5,30 @@ const Branch = require('../model')("Branch");
 const checksession = require('./checksession');
 
 
-router.post('/Details',checksession, function (req, res) {
+router.get('/Details', function (req, res) {
+    var name = req.session.userName;
+    User.findOne({ userName: name, active: true }, function (err, result) {
+        if (err) throw err;
+        if (result != null)
+            (async () => {
+                var branch = await Branch.findOne({ id: result.branch });
+                var user = {};
+                user.firstName = result.firstName;
+                user.lastName = result.lastName;
+                user.userName = result.userName;
+                user.password = result.password;
+                user.email = result.email;
+                user.role = result.role;
+                if (user.role == "employee")
+                    user.branch = result.branch + " " + branch.name + ", " + branch.address;
+                user.gender = result.gender;
+                user.active = result.active;
+                res.status(200).json(JSON.stringify(user));
+            })();
+    });
+});
+
+router.post('/Details', function (req, res) {
     var name = req.body.uname;
     User.findOne({ userName: name, active: true }, function (err, result) {
         if (err) throw err;
@@ -29,7 +52,7 @@ router.post('/Details',checksession, function (req, res) {
 });
 
 router.post('/update',checksession, function (req, res) {
-    uname = req.body.uname;
+    uname = req.session.uname;
     var user = {};
     if (req.body.user) {
         user.firstName = req.body.user.firstName;
@@ -40,7 +63,7 @@ router.post('/update',checksession, function (req, res) {
         user.email = req.body.user.email;
         if (req.body.user.password) {
             user.password = req.body.user.password;
-            User.findOneAndUpdate({ userName: uname, password: req.body.user.oldPassword }, user, function (err, result) {
+            User.findOneAndUpdate({ userName: user.userName, password: req.body.user.oldPassword }, user, function (err, result) {
                 if (err || !result)
                     res.status(404).json('{"status":"FAIL" }');
                 else
@@ -48,15 +71,15 @@ router.post('/update',checksession, function (req, res) {
             })
         }
         else {
-            User.findOneAndUpdate({ userName: uname }, user, function (err, result) {
+            User.findOneAndUpdate({ userName: user.userName }, user, function (err, result) {
                 if (err) console.log(err);
                 res.status(200).json('{"status":"OK" }');
             })
         }
     }
     else {
-        if(req.body.userName)user.userName = req.body.userName;
-        if(req.body.password)user.password = req.body.password;
+        if(req.body.userName) user.userName = req.body.userName;
+        if(req.body.password) user.password = req.body.password;
         user.firstName = req.body.firstName;
         user.lastName = req.body.lastName;
         user.email = req.body.email;
@@ -65,7 +88,7 @@ router.post('/update',checksession, function (req, res) {
             user.branch = req.body.branch.split(" ")[0];
         user.gender = req.body.gender;
         user.active = req.body.active;
-        User.findOneAndUpdate({ userName: uname }, user, function (err, result) {
+        User.findOneAndUpdate({ userName: user.userName }, user, function (err, result) {
             if (err) throw err;
             res.status(200).json('{"status":"OK" }');
         })
@@ -82,7 +105,6 @@ router.post('/remove',checksession, function (req, res) {
 });
 
 router.post('/add',checksession, function (req, res) {
-
     User.findOne({ userName: req.body.userName }, function (err, user) {
         if (err) throw err;
         if (user != null)
@@ -112,12 +134,11 @@ router.post('/add',checksession, function (req, res) {
 
 router.get('/manage',checksession, function (req, res) {
     (async () => {
-      var name = req.cookies.userName;
-  
+      var name = req.session.userName;
       var activeBranches = await Branch.find({ active: true }).exec();
       var role = " ";
-      if (typeof req.cookies.userName !== 'undefined') {
-        role = (await User.findOne({ userName: req.cookies.userName }).select('role').exec()).role;
+      if (req.session.userName !== undefined) {
+        role = (await User.findOne({ userName: req.session.userName }).select('role').exec()).role;
       }
       switch (role) {
         case "manager":
