@@ -3,9 +3,10 @@ const router = express.Router();
 const Flowers = require('../model')("Flower");
 const User = require('../model')("User");
 var fs = require("fs");
+const checksession = require('./checksession');
 
-router.post('/catalog', function (req, res) {
-  var name = req.body.uname;
+router.post('/catalog',checksession, function (req, res) {
+  var name = req.session.userName;
   User.findOne({ userName: name, active: true }, 'userName', function (err, user) {
     if (err) throw err;
     if (user != null) {
@@ -18,13 +19,13 @@ router.post('/catalog', function (req, res) {
 });
 
 // manage flowers
-router.get('/manage', function (req, res) {
+router.get('/manage',checksession, function (req, res) {
   Flowers.find({}, function (err, flowers) {
     (async () => {
-      var name = req.cookies.userName;
+      var name = req.session.userName;
       var role = ' ';
-      if (typeof req.cookies.userName !== 'undefined') {
-        role = (await User.findOne({ userName: req.cookies.userName }).select('role').exec()).role;
+      if (typeof req.session.userName !== 'undefined') {
+        role = (await User.findOne({ userName: req.session.userName }).select('role').exec()).role;
       }
       switch (role) {
         case "provider":
@@ -36,7 +37,7 @@ router.get('/manage', function (req, res) {
     })();
   });
 });
-router.post('/Details', function (req, res) {
+router.post('/Details',checksession, function (req, res) {
   var name = req.body.flower;
   Flowers.findOne({ flower: name }, function (err, result) {
     if (err) throw err;
@@ -45,7 +46,7 @@ router.post('/Details', function (req, res) {
   });
 });
 
-router.post('/add', function (req, res) {
+router.post('/add',checksession, function (req, res) {
 
   Flowers.findOne({ flower: req.body.flower }, function (err, result) {
     if (err) throw err;
@@ -65,7 +66,7 @@ router.post('/add', function (req, res) {
   });
 });
 
-router.post('/addPicture', (req, res) => {
+router.post('/addPicture',checksession, (req, res) => {
   console.log("I'm in the addPicture!!");
   let fbytes = req.headers["content-length"];
   let fname = req.headers["x_filename"];

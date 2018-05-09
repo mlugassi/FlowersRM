@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model')("User");
 const Flowers = require('../model')("Flower");
+const checksession = require('./checksession');
+
 
 var nodemailer = require('nodemailer');
 
@@ -18,19 +20,13 @@ var mailOptions = {
   subject: 'Reset Password',
 };
 
-router.use(function (req, res, next) {
-  if (req.cookies.userName) {
-    res.cookie("userName" , req.cookies.userName, {maxAge  : 5*60*1000});
-  }
-  next();
-});
 // use res.render to load up an ejs view file of index page
 router.get('/', function (req, res) {
   (async () => {
-    var name = req.cookies.userName;
+    var name = req.session.userName;
     var role = "";
     var flowers = "";
-    if (typeof name === 'undefined')
+    if (name === undefined)
       res.render("index", { "uname": "", "role": "", "flowers": "" });
     else {
       var user = await User.findOne({ userName: name, active: true }).exec();
