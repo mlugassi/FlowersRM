@@ -104,7 +104,6 @@ function openProfileModal_Add() {
     })
 }
 function editUser(userName) {
-    alert(userName);
     if ($("#pass-profile").val() == $("#vpass-profile").val()) {
         $("status-" + userName).val("Pendding");
         var status = !$("#delete-profile").is(':checked');
@@ -113,6 +112,7 @@ function editUser(userName) {
                 uname: userName,
                 firstName: $("#fname-profile").val(),
                 lastName: $("#lname-profile").val(),
+                userName : userName,
                 email: $("#mail-profile").val(),
                 password: md5($("#pass-profile").val()),
                 branch: $("#branch-profile").val(),
