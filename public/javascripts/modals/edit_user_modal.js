@@ -24,7 +24,6 @@ function editPassword() {
 function openUserModal() {
     $.get("users/Details",{ },
         function (data, status) {
-
             var json = jQuery.parseJSON(data);
             //var modal = document.getElementById('profileModal');
             //var span = document.getElementsByClassName("close")[0];

@@ -1,6 +1,5 @@
 <form id="profile-form" class="modal-content animate" action="javascript:void(0);">
     <div class="container">
-
         <label for="fname-profile">First Name</label>
         <input type="text" id="fname-profile" required>
         <label for="lname-profile">Last Name</label>
@@ -16,21 +15,21 @@
         <label for="role-profile">Role</label>
         <select id="role-profile" required>
             <% if(role=="manager"){ %>
-                <option value="manager">Manager</option>
-                <option value="customer">Customer</option>
-                <option value="provider">Provider</option>
-                <% }; %>
-                    <option value="employee" selected="selected">Employee</option>
+            <option value="manager">Manager</option>
+            <option value="customer">Customer</option>
+            <option value="provider">Provider</option>
+            <% }; %>
+            <option value="employee" selected="selected">Employee</option>
         </select>
         <label for="branch-profile" id="lbranch-profile">Branch</label>
         <select id="branch-profile">
             <% branches.forEach(function(branch) { %>
-                <option>
-                    <%- branch.id %>
-                        <%- branch.name %>,
-                            <%- branch.address %>
-                </option>
-                <% }); %>
+            <option>
+            <%- branch.id %>
+            <%- branch.name %>,
+            <%- branch.address %>
+            </option>
+            <% }); %>
         </select>
         <label for="gender-profile">Gender</label>
         <select id="gender-profile" required>
@@ -45,7 +44,7 @@
             </br>
             <input type="checkbox" id="delete-profile">
             <label for="delete-profile" id="ldelete-profile">Delete User</label>
-            <% }; %>
-                <button id="submit-profile" type="submit">aa</button>
+        <% }; %>
+        <button id="submit-profile" type="submit"></button>
     </div>
 </form>
