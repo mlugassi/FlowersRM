@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <% include partials/user_managment_head %>
-        <script src="../javascripts/‏flower_modal_manager.js"></script>
-        <link rel="stylesheet" href="../stylesheets/owl.carousel.min.css">
+    <% include partials/heads/flowers_managment_head %>
+    <style>
+
+</style>
 </head>
 
 <body>
@@ -11,13 +13,13 @@
         <% include partials/navHeaderManage %>
     </nav>
     <h1 class="text-center">Flowers Catalog</h1>
-    <div style="width: 90%;  margin-left: auto; margin-right: auto;" id = "divCatalog">
+    <div style="width: 90%;  margin-left: auto; margin-right: auto;" id="divCatalog">
         <%- include('partials/catalog', {flowers: flowers}); %>
     </div>
-    <div id="profile-modal" class="modal">
-        <% include partials/‏flower_profile %>
+    <div id="flower-modal" class="modal">
+        <% include partials/modals/‏flower_modal %>
     </div>
-    <a class="float" onclick="addFlower();">
+    <a class="float" onclick="openFlowerModal();">
         <i class="fa fa-plus my-float"></i>
     </a>
 </body>

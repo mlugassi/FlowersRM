@@ -16,9 +16,9 @@
     <div class="carousel-inner" role="listbox" id = "catalog_carousel">
 		<% for(var i = 0; flowers.length > i; i++) { %>
 			<% if(i==0){ %>
-			<div class="item active" onclick="edit('<%= flowers[i].flower %>')">
+			<div class="item active" onclick="showFlowerDeatails('<%= flowers[i].flower %>')">
 			<% }else{%>
-			<div class="item" onclick="edit ('<%= flowers[i].flower %>')">
+			<div class="item" onclick="showFlowerDeatails ('<%= flowers[i].flower %>')">
 			<% } %>
 				<img src=<%= "../" + flowers[i].picture %> alt="Image">
 				<div class="carousel-caption">
