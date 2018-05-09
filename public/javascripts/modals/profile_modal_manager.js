@@ -17,6 +17,8 @@ function openProfileModal_Edit(userName) {
             $("#role-profile").val(json.role);
             $("#gender-profile").val(json.gender);
             $("#submit-profile").text("Submit");
+            $("#uname-profile").prop('required', false);
+
 
             $("#ldelete-profile").show();
             $("#delete-profile").show();
@@ -27,7 +29,7 @@ function openProfileModal_Edit(userName) {
 
             $('#cpass-profile').prop('checked', false);
             $('#delete-profile').prop('checked', false);
-            $('#profile-form').attr('onsubmit', 'editUser(\'' + json.userName + '\')');
+            $("#profile-form").attr("onsubmit", 'editUser("' + json.userName + '")');
             editPassword();
 
             if (json.role == "employee") {
@@ -59,15 +61,15 @@ function openProfileModal_Edit(userName) {
         });
 }
 function openProfileModal_Add() {
-    if ($("#fname-signup").val() != "") $("#fname-profile").val("");
-    if ($("#fname-signup").val() != "") $("#lname-profile").val("");
-    if ($("#fname-signup").val() != "") $("#uname-profile").val("");
-    if ($("#fname-signup").val() != "") $("#branch-profile").val("");
-    if ($("#fname-signup").val() != "") $("#mail-profile").val("");
-    if ($("#fname-signup").val() != "") $("#role-profile").val("");
-    if ($("#fname-signup").val() != "") $("#pass-profile").val("");
-    if ($("#fname-signup").val() != "") $("#vpass-profile").val("");
-    if ($("#fname-signup").val() != "") $("#gender-profile").val("");
+    if ($("#fname-profile").val() != "") $("#fname-profile").val("");
+    if ($("#fname-profile").val() != "") $("#lname-profile").val("");
+    if ($("#fname-profile").val() != "") $("#uname-profile").val("");
+    if ($("#fname-profile").val() != "") $("#branch-profile").val("");
+    if ($("#fname-profile").val() != "") $("#mail-profile").val("");
+    if ($("#fname-profile").val() != "") $("#role-profile").val("");
+    if ($("#fname-profile").val() != "") $("#pass-profile").val("");
+    if ($("#fname-profile").val() != "") $("#vpass-profile").val("");
+    if ($("#fname-profile").val() != "") $("#gender-profile").val("");
     $("#submit-profile").text("Add");
 
     $("#lbranch-profile").hide();
@@ -82,7 +84,7 @@ function openProfileModal_Add() {
     $('#delete-profile').prop('checked', false);
     $('#cpass-profile').prop('checked', true);
     
-    $('#profile-form').attr('onsubmit', 'addUser()');
+    $("#profile-form").attr("onsubmit", 'addUser()');
 
     editPassword();
 
