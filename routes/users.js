@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model')("User");
 const Branch = require('../model')("Branch");
+const checksession = require('./checksession');
 
 
-router.post('/Details', function (req, res) {
+router.post('/Details',checksession, function (req, res) {
     var name = req.body.uname;
     User.findOne({ userName: name, active: true }, function (err, result) {
         if (err) throw err;
@@ -27,7 +28,7 @@ router.post('/Details', function (req, res) {
     });
 });
 
-router.post('/update', function (req, res) {
+router.post('/update',checksession, function (req, res) {
     uname = req.body.uname;
     var user = {};
     if (req.body.user) {
@@ -71,7 +72,7 @@ router.post('/update', function (req, res) {
     }
 });
 
-router.post('/remove', function (req, res) {
+router.post('/remove',checksession, function (req, res) {
     name = req.body.uname;
     User.findOneAndUpdate({ userName: name }, { active: false }, function (err, result) {
         if (err) throw err;
@@ -80,7 +81,7 @@ router.post('/remove', function (req, res) {
     })
 });
 
-router.post('/add', function (req, res) {
+router.post('/add',checksession, function (req, res) {
 
     User.findOne({ userName: req.body.userName }, function (err, user) {
         if (err) throw err;
@@ -109,7 +110,7 @@ router.post('/add', function (req, res) {
     });
 });
 
-router.get('/manage', function (req, res) {
+router.get('/manage',checksession, function (req, res) {
     (async () => {
       var name = req.cookies.userName;
   

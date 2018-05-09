@@ -23,7 +23,8 @@
   }
 
   function logout() {
-    $.get("login/logout",{ },
+    alert("logout");
+    $.get("/login/logout",{ },
             function (data, status) {
               window.location = "/";
             }
