@@ -28,7 +28,6 @@ function openProfileModal_Edit(userName) {
             $('#cpass-profile').prop('checked', false);
             $('#delete-profile').prop('checked', false);
             $('#profile-form').attr('onsubmit', 'editUser(\'' + json.userName + '\')');
-          
             editPassword();
 
             if (json.role == "employee") {
@@ -60,7 +59,6 @@ function openProfileModal_Edit(userName) {
         });
 }
 function openProfileModal_Add() {
-    alert($("#submit-profile").text());
     if ($("#fname-signup").val() != "") $("#fname-profile").val("");
     if ($("#fname-signup").val() != "") $("#lname-profile").val("");
     if ($("#fname-signup").val() != "") $("#uname-profile").val("");
@@ -83,6 +81,7 @@ function openProfileModal_Add() {
 
     $('#delete-profile').prop('checked', false);
     $('#cpass-profile').prop('checked', true);
+    
     $('#profile-form').attr('onsubmit', 'addUser()');
 
     editPassword();
@@ -103,6 +102,7 @@ function openProfileModal_Add() {
     })
 }
 function editUser(userName) {
+    alert(userName);
     if ($("#pass-profile").val() == $("#vpass-profile").val()) {
         $("status-" + userName).val("Pendding");
         var status = !$("#delete-profile").is(':checked');
