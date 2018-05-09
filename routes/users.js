@@ -89,7 +89,7 @@ router.post('/update',checksession, function (req, res) {
         user.gender = req.body.gender;
         user.active = req.body.active;
         User.findOneAndUpdate({ userName: user.userName }, user, function (err, result) {
-            if (err) throw err;
+            if (err || !result) console.log(err);
             res.status(200).json('{"status":"OK" }');
         })
     }
