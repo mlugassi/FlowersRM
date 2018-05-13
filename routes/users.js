@@ -6,7 +6,7 @@ const checksession = require('./checksession');
 
 
 router.get('/Details', function (req, res) {
-    var name = req.session.userName;
+    var name = req.session.passport.user;
     User.findOne({ userName: name, active: true }, function (err, result) {
         if (err) throw err;
         if (result != null)
@@ -52,7 +52,7 @@ router.post('/Details', function (req, res) {
 });
 
 router.post('/update',checksession, function (req, res) {
-    uname = req.session.uname;
+    uname = req.session.passport.user;
     var user = {};
     if (req.body.user) {
         user.firstName = req.body.user.firstName;
@@ -135,11 +135,11 @@ router.post('/add',checksession, function (req, res) {
 
 router.get('/manage',checksession, function (req, res) {
     (async () => {
-      var name = req.session.userName;
+      var name = req.session.passport.user;
       var activeBranches = await Branch.find({ active: true }).exec();
       var role = " ";
-      if (req.session.userName !== undefined) {
-        role = (await User.findOne({ userName: req.session.userName }).select('role').exec()).role;
+      if (req.session.passport.user !== undefined) {
+        role = (await User.findOne({ userName: req.session.passport.user }).select('role').exec()).role;
       }
       switch (role) {
         case "manager":

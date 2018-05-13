@@ -23,19 +23,22 @@ var mailOptions = {
 // use res.render to load up an ejs view file of index page
 router.get('/', function (req, res) {
   (async () => {
-    var name = req.session.userName;
-    var role = "";
-    var flowers = "";
-    if (name === undefined)
+    if (req.session === undefined || req.session.passport === undefined)
       res.render("index", { "uname": "", "role": "", "flowers": "" });
     else {
+      console.log(req.session);
+      var name = req.session.passport.user;
+      var role = "";
+      var flowers = "";
+
+
       var user = await User.findOne({ userName: name, active: true }).exec();
       if (user != null) {
         role = user.role;
         flowers = await Flowers.find({}).exec();
       }
       else name = "";
-      res.render("index", { "uname": name, "role": role, "flowers": flowers });
+      res.render("index", { "uname": name, "role": role, "flowers": flowers});
     }
   })();
 });

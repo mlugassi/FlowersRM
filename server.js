@@ -8,7 +8,11 @@ let logger = require('morgan');
 let mongoose = require('mongoose');       // add mongoose for MongoDB access
 let session = require('express-session'); // add session management module
 let connectMongo = require('connect-mongo'); // add session store implementation for MongoDB
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var path = require('path');
+
+const User = require('./model')("User");
 
 var app = express();
 
@@ -54,6 +58,35 @@ let flowers = require('./routes/flowers');
     // NB: maxAge is used for session object expiry setting in the storage backend as well
   }));
 
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.use(new LocalStrategy({
+    usernameField: 'uname',
+    passwordField: 'psw'
+  },
+    function(uname, psw,done) {
+      User.findOne({ userName: uname }, function(err, user) {
+        if (err) { return done(err); }
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!(user.password == psw)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        console.log(done);
+       return done(null, user);
+      });
+    }
+  ));
+  passport.serializeUser(function(user, done) {
+    done(null, user.userName);
+  });
+  
+  passport.deserializeUser(function(uname, done) {
+    User.findOne({ userName: uname }, function(err, user) {
+      done(err, user);
+  });
+});
   app.use(favicon(path.join(__dirname, 'public', 'images', 'flower.ico')));
   app.use('/users', users);
   app.use('/login', login); // register login controller

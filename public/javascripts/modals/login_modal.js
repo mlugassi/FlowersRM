@@ -15,16 +15,17 @@ function login(kind) {
     $.post("login",
         {
             uname: $("#uname-" + kind).val(),
-            psw: final_hash,
+            psw: md5_hash,
             salt: salt
         },
         function (data, status) {
-            var d = jQuery.parseJSON(data);
-            if (d.status == "success") {
+            if (data.status == "success") {
                 $('#login-modal').hide();
                 location.reload();
             } else {
-                alert("Your password is wrong!");
+                alert(data.message);
             }
+        }).fail(function (data, status) {
+            alert("Your have a wrong connction!");
         });
 }

@@ -6,7 +6,7 @@ var fs = require("fs");
 const checksession = require('./checksession');
 
 router.post('/catalog',checksession, function (req, res) {
-  var name = req.session.userName;
+  var name = req.session.passport.user;
   User.findOne({ userName: name, active: true }, 'userName', function (err, user) {
     if (err) throw err;
     if (user != null) {
@@ -22,10 +22,10 @@ router.post('/catalog',checksession, function (req, res) {
 router.get('/manage',checksession, function (req, res) {
   Flowers.find({}, function (err, flowers) {
     (async () => {
-      var name = req.session.userName;
+      var name = req.session.passport.user;
       var role = ' ';
-      if (typeof req.session.userName !== 'undefined') {
-        role = (await User.findOne({ userName: req.session.userName }).select('role').exec()).role;
+      if (req.session.passport.user === undefined) {
+        role = (await User.findOne({ userName: req.session.passport.user }).select('role').exec()).role;
       }
       switch (role) {
         case "provider":
