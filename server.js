@@ -10,6 +10,7 @@ let session = require('express-session'); // add session management module
 let connectMongo = require('connect-mongo'); // add session store implementation for MongoDB
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var md5 = require('md5');
 var path = require('path');
 
 const User = require('./model')("User");
@@ -46,7 +47,7 @@ let flowers = require('./routes/flowers');
 
   let secret = 'FlowerRM secret'; // must be the same one for cookie parser and for session
   app.use(cookieParser(secret));
-  
+
   app.use(session({
     name: 'users.sid',         // the name of session ID cookie
     secret: secret,            // the secret for signing the session ID cookie
@@ -62,31 +63,31 @@ let flowers = require('./routes/flowers');
   app.use(passport.session());
   passport.use(new LocalStrategy({
     usernameField: 'uname',
-    passwordField: 'psw'
+    passwordField: 'psw',
+    passReqToCallback: true
   },
-    function(uname, psw,done) {
-      User.findOne({ userName: uname }, function(err, user) {
+    function (req, uname, psw, done) {
+      User.findOne({ userName: uname }, function (err, user) {
         if (err) { return done(err); }
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }
-        if (!(user.password == psw)) {
+        if (!((md5(user.password + req.body.salt)) == psw)) {
           return done(null, false, { message: 'Incorrect password.' });
         }
-        console.log(done);
-       return done(null, user);
+        return done(null, user);
       });
     }
   ));
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser(function (user, done) {
     done(null, user.userName);
   });
-  
-  passport.deserializeUser(function(uname, done) {
-    User.findOne({ userName: uname }, function(err, user) {
+
+  passport.deserializeUser(function (uname, done) {
+    User.findOne({ userName: uname }, function (err, user) {
       done(err, user);
+    });
   });
-});
   app.use(favicon(path.join(__dirname, 'public', 'images', 'flower.ico')));
   app.use('/users', users);
   app.use('/login', login); // register login controller
@@ -121,4 +122,4 @@ let flowers = require('./routes/flowers');
 })()
   .catch(err => { console.log("Failure: " + err); process.exit(0); });
 
-  module.exports = app;
+module.exports = app;

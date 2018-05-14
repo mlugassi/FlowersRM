@@ -15,7 +15,7 @@ function login(kind) {
     $.post("login",
         {
             uname: $("#uname-" + kind).val(),
-            psw: md5_hash,
+            psw: final_hash,
             salt: salt
         },
         function (data, status) {
