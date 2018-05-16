@@ -20,11 +20,14 @@ router.post('/catalog',checksession, function (req, res) {
 
 // manage flowers
 router.get('/manage',checksession, function (req, res) {
+  console.log("manage flowers");
+  console.log(req.session.passport.user);
+
   Flowers.find({}, function (err, flowers) {
     (async () => {
       var name = req.session.passport.user;
       var role = ' ';
-      if (req.session.passport.user === undefined) {
+      if (req.session.passport.user !== undefined) {
         role = (await User.findOne({ userName: req.session.passport.user }).select('role').exec()).role;
       }
       switch (role) {
